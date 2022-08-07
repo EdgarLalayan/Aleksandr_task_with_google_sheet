@@ -1,5 +1,4 @@
 import requests
-#import fake_useragent
 from bs4 import BeautifulSoup
 from read_file import url_data
 import csv
@@ -11,7 +10,10 @@ from tqdm import tqdm
 
 DATA = url_data()
 
-def checker(url_input):
+def checker(url_input,counter=''):
+    c = 0
+    if counter == 'regress':
+        c+=1
     try:
         url = url_input
         
@@ -31,14 +33,14 @@ def checker(url_input):
         # 403 Error
         if res_code == 404:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = str(res_code)
             result = [r2,r1,r3]
             return result
         #404 Error
         elif response.status_code == 403:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = str(res_code)
             result = [r2,r1,r3]
             return result
@@ -46,7 +48,12 @@ def checker(url_input):
         #Ezoic
         elif 'ezoic.ai' in str_data:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Ezoic'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Ezoic'
             result = [r2,r1,r3]  
             return result
@@ -54,7 +61,12 @@ def checker(url_input):
         #adthrive
         elif 'adthrive' in str_data or 'AdThrive' in str_data:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Adthrive'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Adthrive'
             result = [r2,r1,r3] 
             return result
@@ -62,7 +74,12 @@ def checker(url_input):
         #MONUMETRIC  
         elif 'MONUMETRIC' in str_data or 'monumetric' in str_data:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Monumetric'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Monumetric'
             result = [r2,r1,r3]
             return result
@@ -70,7 +87,12 @@ def checker(url_input):
         #Mediavine  
         elif 'mediavine.com' in str_data or 'Mediavine' in str_data:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Mediavine'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Mediavine'
             result = [r2,r1,r3]
             return result
@@ -78,7 +100,12 @@ def checker(url_input):
         #Shemedia
         elif 'shemedia.com' in str_data or 'SHE Media' in str_data:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Shemedia'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Shemedia'
             result = [r2,r1,r3]
             return result
@@ -86,22 +113,36 @@ def checker(url_input):
         #Gourmetads
         elif 'gourmetads.com' in str_data or 'GOURMET ADS' in str_data:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Gourmetads'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Gourmetads'
             result = [r2,r1,r3]
             return result
 
-
         #Medianet
-        elif ('media.net' in list_data[0] or 'media.net' in list_data[1] or 'media.net' in list_data[2] or 'media.net' in list_data[3]) :
+        elif (len(list_data) >= 3) and ('media.net' in list_data[0] or 'media.net' in list_data[1] or 'media.net' in list_data[2] or 'media.net' in list_data[3]) :
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Medianet'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Medianet'
             result = [r2,r1,r3]
             return result
-        elif 'Media.net' in list_data[0] or 'Media.net' in list_data[1] or 'Media.net' in list_data[2] or 'Media.net' in list_data[3]:
+        elif (len(list_data) >= 3) and ('Media.net' in list_data[0] or 'Media.net' in list_data[1] or 'Media.net' in list_data[2] or 'Media.net' in list_data[3]):
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Medianet'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Medianet'
             result = [r2,r1,r3]
             return result
@@ -111,7 +152,12 @@ def checker(url_input):
         #Sovrn
         elif 'sovrn.com' == str_data[0:9]:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Sovrn'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Sovrn'
             result = [r2,r1,r3]
             return result
@@ -120,13 +166,23 @@ def checker(url_input):
         #Adsense
         elif (len(list_data) == 1 or len(list_data) == 2 or len(list_data) == 3 or len(list_data) == 4 or len(list_data) == 5 or len(list_data) == 6) and ('google.com' in list_data[0] or 'google.com' in list_data[-1]):
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Adsense'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Adsense'
             result = [r2,r1,r3]
             return result         
         elif len(list_data) == 4 and 'google.com' in list_data[3]:
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            if counter == 'regress':
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 'Adsense'
+                result = [r2,r1,r3] 
+                return result
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Adsense'
             result = [r2,r1,r3]
             return result  
@@ -134,21 +190,25 @@ def checker(url_input):
         
         else:#unknown
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Unknown'
             result = [r2,r1,r3]
             return result      
     
     
     except Timeout:#404
-            r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
-            r3 = 404
-            result = [r2,r1,r3]
-            return result    
+            if c == 0:
+                url = url.replace('https://','https://www.')
+                return checker(url,counter='regress')
+            else:
+                r1 = url
+                r2 = url.replace('https://www.','').replace('/ads.txt','')
+                r3 = 404
+                result = [r2,r1,r3]
+                return result
     except:#unknown
             r1 = url
-            r2 = url.replace('https://www.','').replace('/ads.txt','')
+            r2 = url.replace('https://','').replace('/ads.txt','')
             r3 = 'Unknown'
             result = [r2,r1,r3]
             return result    
@@ -164,5 +224,5 @@ def get_full_data():
         data_result_list.append(res)
     return data_result_list
 
-#print(checker('https://multiply.info/ads.txt'))
+#print(checker('https://www.thepartiologist.com/ads.txt'))
 
