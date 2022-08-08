@@ -53,7 +53,7 @@ def url_data():
             # Print columns A and E, which correspond to indices 0 and 4.
             string = ('%s' % (row[0]))
             #https://onthegas.org/ads.txt
-            data_url.append(f'https://www.{string}/ads.txt')
+            data_url.append(f'https://{string}/ads.txt')
     except HttpError as err:
         print(err)      
     return data_url
