@@ -164,7 +164,7 @@ def checker(url_input,counter=''):
 
 
         #Adsense
-        elif (len(list_data) == 1 or len(list_data) == 2 or len(list_data) == 3 or len(list_data) == 4 or len(list_data) == 5 or len(list_data) == 6) and ('google.com' in list_data[0] or 'google.com' in list_data[-1]):
+        elif (len(list_data[0])<300) and (len(list_data) == 1 or len(list_data) == 2 or len(list_data) == 3 or len(list_data) == 4 or len(list_data) == 5 or len(list_data) == 6) and ('google.com' in list_data[0] or 'google.com' in list_data[-1]):
             r1 = url
             if counter == 'regress':
                 r2 = url.replace('https://www.','').replace('/ads.txt','')
